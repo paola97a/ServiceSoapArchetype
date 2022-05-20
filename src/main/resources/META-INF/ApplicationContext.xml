@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+
+	<camelContext xmlns="http://camel.apache.org/schema/spring">
+		<route id="wsRoute">
+			<from uri="cxf:bean:productServiceEndpoint" />
+			<bean ref="productServiceImpl" />
+		</route>
+		<!-- la ruta "direct:Start" inicial el flujo de enrutamito, espera a que 
+			los mensajes lleguen a la cola directa y luego enviará el mensaje al endpoint 
+			de CXF usano el prefijo en la uri "cxf:bean" -->
+		<route id="wsClient">
+			<from uri="direct:start2" />
+			<log message="Writing message to Folder" />
+			<to
+				uri="cxf:bean:productServiceEndpoint?defaultOperationName=getProductDetails" />
+		</route>
+	</camelContext>
+
+	<bean id="productServiceImpl" class="testsoap.ProductServiceImpl" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
+	
+	<cxf:cxfEndpoint id="productServiceEndpoint"
+		address="http://localhost:${port1}/productService" serviceClass="com.openintl.ws.product_service.Product"/>
+	
+	
+
+</beans>

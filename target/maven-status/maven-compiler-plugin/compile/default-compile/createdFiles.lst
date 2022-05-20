@@ -1,0 +1,12 @@
+com\openintl\ws\product_service\types\ProductRequest.class
+com\openintl\ws\product_service\types\ObjectFactory.class
+com\openintl\ws\product_service\types\ProductResponse.class
+testsoap\ProductServiceImpl.class
+com\openintl\ws\product_service\types\package-info.class
+testsoap\ProductNotFoundException.class
+testsoap\CamelCxfProduct.class
+testsoap\ProductServiceImpl$Product.class
+com\openintl\ws\product_service\Product.class
+com\openintl\ws\product_service\types\Error.class
+com\openintl\ws\product_service\ErrorMessage.class
+com\openintl\ws\product_service\ProductService.class
